@@ -1,0 +1,64 @@
+{
+  "manifest_version": 2,
+  "name": "Media Controller",
+  "author": "Marcin Urbaniak / Tony Chan",
+  "version": "1.0",
+  "description": "Control media across tabs.",
+  "homepage_url": "https://github.com/nicramu/media-controller-extension",
+  "icons": {
+    "128": "icon.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "web_accessible_resources": [
+    "inject.js",
+    "media.js",
+    "hook.js"
+  ],
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "128": "icon.light.svg"
+    },
+    "theme_icons": [
+      {
+        "light": "icon.dark.svg",
+        "dark": "icon.light.svg",
+        "size": 128
+      }
+    ],
+    "default_title": "Media Controller",
+    "default_popup": "popup/index.html"
+  },
+  "permissions": [
+    "tabs",
+    "<all_urls>",
+    "theme",
+    "storage"
+  ],
+  "options_ui": {
+    "page": "options.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "media-controller.extension@nicramu-tnychn"
+    }
+  },
+  "commands": {
+    "open_popup": {
+      "suggested_key": {
+        "default": "Shift+Alt+M"
+      },
+      "description": "Open media controller popup."
+    },
+    "mute_all": {
+      "suggested_key": {
+        "default": "Shift+Alt+Comma"
+      },
+      "description": "Mute all tabs."
+    }
+  }
+}

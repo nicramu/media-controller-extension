@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <style>
+    body {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      line-height: 3;
+      padding: 2rem;
+    }
+  </style>
+  <meta charset="utf-8" />
+  <meta name="color-scheme" content="dark light" />
+</head>
+
+<body>
+  <form>
+    <label for="showImg">show image</label>
+    <input type="checkbox" id="showImg" />
+    <br>
+    <label for="showSettings">show settings and reload buttons</label>
+    <input type="checkbox" id="showSettings" />
+    <br>
+    <label for="color">duration in seconds to consider video/audio livestream (disables some controls)
+      [default=360.000]</label>
+    <input type="number" id="isLiveSeconds" />
+    <br>
+    <a id="shortcuts" href="">shortcuts</a> (you will leave this page! save changes)
+    <br><br>
+
+    <button type="submit">save</button>
+    <button type="button" id="reset">reset to defaults</button>
+  </form>
+  <script src="options.js"></script>
+</body>
+
+</html>
