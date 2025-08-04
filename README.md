@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://addons.mozilla.org/firefox/addon/">
+  <a href="https://addons.mozilla.org/pl/firefox/addon/media-controls-n/">
     <img src="https://user-images.githubusercontent.com/585534/107280546-7b9b2a00-6a26-11eb-8f9f-f95932f4bfec.png" />
   </a>
 </p>
