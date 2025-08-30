@@ -22,7 +22,8 @@ let textColor = await browser.theme.getCurrent().then((theme) => {
 
 let background;
 
-const options = await browser.storage.local.get(['isLiveSeconds', 'showImg', 'showSettings']);
+
+const options = await browser.storage.local.get(['isLiveSeconds', 'showImg', 'showSettings', 'previousTab']);
 options.isLiveSeconds = options.isLiveSeconds || 360000
 options.showImg = options.showImg ?? true;
 options.showSettings = options.showSettings ?? true;
@@ -31,6 +32,9 @@ const $main = document.querySelector("main");
 
 $main.innerHTML = `
 <div id="settingsDiv" style="${options.showSettings ? "" : "display:none;"}">
+  <button title="Return to Previous Tab" id="previousTab" style="color:${textColor}" >
+      ${Icons.return}
+  </button>
   <button title="Settings" id="settings" style="color:${textColor}">
       ${Icons.settings}
   </button>
@@ -39,11 +43,18 @@ $main.innerHTML = `
   </button>
   </div>
   `
+
+let previousTab = options.previousTab
+$main.querySelector("#previousTab").setAttribute("title", `Return to Tab: '${previousTab?.title}'`)
 $main.querySelector("#settings").onclick = () => {
   browser.runtime.openOptionsPage();
 };
 $main.querySelector("#reload").onclick = () => {
   browser.runtime.reload();
+};
+$main.querySelector("#previousTab").onclick = async () => {
+  browser.tabs.update(previousTab.id, { active: true });
+  browser.windows.update(previousTab.windowId, { focused: true });
 };
 
 
@@ -122,7 +133,10 @@ const $tab = (tab) => {
   </div>
   `;
 
-    $.querySelector("div.tab-meta-info-title").onclick = () => {
+    $.querySelector("div.tab-meta-info-title").onclick = async () => {
+      [previousTab] = await browser.tabs.query({ active: true, currentWindow: true });
+      browser.storage.local.set({ previousTab: previousTab })
+      $main.querySelector("#previousTab").setAttribute("title", `Return to Tab: '${previousTab.title}'`)
       browser.tabs.update(tab.id, { active: true });
       browser.windows.update(tab.wid, { focused: true });
     };
@@ -220,7 +234,7 @@ const $tab = (tab) => {
 
 window["add"] = async function (tab) {
   if ($main.querySelector(`div[data-tid="${tab.id}"]`) === null) {
-    $main.prepend($tab(tab));
+    $main.append($tab(tab));
   }
 };
 
@@ -305,7 +319,10 @@ function createSpotifyTab(tab) {
   </div>
   `;
 
-  $.querySelector("div.tab-meta-info-title").onclick = () => {
+  $.querySelector("div.tab-meta-info-title").onclick = async () => {
+    [previousTab] = await browser.tabs.query({ active: true, currentWindow: true });
+    browser.storage.local.set({ previousTab: previousTab })
+    $main.querySelector("#previousTab").setAttribute("title", `Return to Tab: '${previousTab.title}'`)
     browser.tabs.update(tab.id, { active: true });
     browser.windows.update(tab.wid, { focused: true });
   };
