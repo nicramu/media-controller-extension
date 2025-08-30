@@ -30,6 +30,7 @@ new features:
 - Spotify support (a bit buggy)
 - options page: hide thumbnails, set media duration for live media
 - keyboard shortcut to open extension and mute all media
+- button to go back to previous tab (use case: you are on a tab with long pdf text, you want to turn on pip on one of media from extension; you open tab with media from extension popup, press pip button and from extension popup you can go back to tab with your pdf, so you don't have to navigate through other tabs)
 ---
 
 <p align="center">
